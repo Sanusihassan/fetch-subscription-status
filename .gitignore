@@ -12,7 +12,7 @@ yarn-error.log*
 bower_components/
 
 # Build output
-/dist
+# /dist
 /build
 
 # .env files
