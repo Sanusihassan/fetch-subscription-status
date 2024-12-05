@@ -18,11 +18,15 @@
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.mjs"
     },
     "./fetchSubscriptionStatus": {
       "import": "./dist/fetchSubscriptionStatus.mjs",
-      "types": "./dist/fetchSubscriptionStatus.d.ts"
+      "require": "./dist/fetchSubscriptionStatus.mjs"
+    },
+    "./canUseSiteToday": {
+      "import": "./dist/canUseSiteToday.mjs",
+      "require": "./dist/canUseSiteToday.mjs"
     }
   },
   "devDependencies": {
