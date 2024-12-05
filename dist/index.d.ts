@@ -1,2 +1,2 @@
-export { fetchSubscriptionStatus } from './fetchSubscriptionStatus';
-export { canUseSiteToday } from "./canUseSiteToday";
+export * from './fetchSubscriptionStatus';
+export * from "./canUseSiteToday";
