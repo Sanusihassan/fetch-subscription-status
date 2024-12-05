@@ -1,6 +1,6 @@
 {
   "name": "fetch-subscription-status",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "dist/index.mjs",
   "scripts": {
@@ -19,6 +19,10 @@
     ".": {
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
+    },
+    "./fetchSubscriptionStatus": {
+      "import": "./dist/fetchSubscriptionStatus.mjs",
+      "types": "./dist/fetchSubscriptionStatus.d.ts"
     }
   },
   "devDependencies": {
