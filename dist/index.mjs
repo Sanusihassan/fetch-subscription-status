@@ -1,2 +1,2 @@
-export * from './fetchSubscriptionStatus';
-export * from "./canUseSiteToday";
+export * from "./fetchSubscriptionStatus.mjs";
+export * from "./canUseSiteToday.mjs";
