@@ -1,6 +1,6 @@
 {
   "name": "fetch-subscription-status",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "dist/index.mjs",
   "scripts": {
@@ -16,17 +16,10 @@
     "jwt-decode": "^4.0.0"
   },
   "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.mjs"
-    },
     "./fetchSubscriptionStatus": {
       "import": "./dist/fetchSubscriptionStatus.mjs",
-      "require": "./dist/fetchSubscriptionStatus.mjs"
-    },
-    "./canUseSiteToday": {
-      "import": "./dist/canUseSiteToday.mjs",
-      "require": "./dist/canUseSiteToday.mjs"
+      "require": "./dist/fetchSubscriptionStatus.js",
+      "types": "./dist/fetchSubscriptionStatus.d.ts"
     }
   },
   "devDependencies": {
