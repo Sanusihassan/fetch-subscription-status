@@ -1,4 +1,3 @@
-// please complete the jsDoc
 import Cookies from 'js-cookie';
 /**
  * Checks if a user can use a feature based on monthly usage limits
