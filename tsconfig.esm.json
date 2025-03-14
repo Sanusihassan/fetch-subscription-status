@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
-    "module": "ESNext",  // or "NodeNext" for Node environments
+    "module": "NodeNext",
     "target": "ESNext",
     "outDir": "dist/esm",
     "declaration": true,
-    "declarationDir": "dist/esm"
+    "declarationDir": "dist/esm",
+    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
+    "types": ["node", "js-cookie"]
   },
   "include": ["src/**/*"]
 }
