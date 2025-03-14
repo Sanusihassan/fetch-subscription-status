@@ -9,7 +9,7 @@ const endpoint =
         : "";
 
 // Interface for user information
-interface UserInfo {
+export interface UserInfo {
     id: string;
     username: string;
     email: string;

@@ -1,4 +1,4 @@
-interface UserInfo {
+export interface UserInfo {
     id: string;
     username: string;
     email: string;
@@ -15,4 +15,3 @@ interface UserInfo {
  * @returns A Promise resolving to UserInfo if the user is signed in, or null if not.
  */
 export declare function getUserInfo(): Promise<UserInfo | null>;
-export {};
