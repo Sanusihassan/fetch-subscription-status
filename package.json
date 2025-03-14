@@ -1,10 +1,10 @@
 {
   "name": "fetch-subscription-status",
-  "version": "2.0.66",
+  "version": "2.0.67",
   "description": "",
   "main": "dist/index.mjs",
   "scripts": {
-    "build": "tsc && node rename.js",
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,12 +17,14 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./fetchSubscriptionStatus": {
-      "import": "./dist/fetchSubscriptionStatus.mjs",
-      "types": "./dist/fetchSubscriptionStatus.d.ts"
+      "import": "./dist/esm/fetchSubscriptionStatus.js",
+      "require": "./dist/cjs/fetchSubscriptionStatus.js",
+      "types": "./dist/esm/fetchSubscriptionStatus.d.ts"
     }
   },
   "devDependencies": {
