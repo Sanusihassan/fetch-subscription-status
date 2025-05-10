@@ -8,7 +8,7 @@ const js_cookie_1 = __importDefault(require("js-cookie"));
 const axios_1 = __importDefault(require("axios"));
 const jwt_decode_1 = require("jwt-decode");
 const endpoint = process.env.NODE_ENV === "development"
-    ? "https://refactored-space-couscous-r65x9p4pxqghw7gv-3000.app.github.dev/"
+    ? "https://www.pdfequips.com"
     : "";
 async function fetchSubscriptionStatus() {
     try {

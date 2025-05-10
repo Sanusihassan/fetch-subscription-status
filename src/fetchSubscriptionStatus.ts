@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const endpoint =
     process.env.NODE_ENV === "development"
-        ? "https://refactored-space-couscous-r65x9p4pxqghw7gv-3000.app.github.dev/"
+        ? "https://www.pdfequips.com"
         : "";
 
 
