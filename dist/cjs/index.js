@@ -18,3 +18,4 @@ __exportStar(require("./fetchSubscriptionStatus"), exports);
 __exportStar(require("./canUseSiteToday"), exports);
 __exportStar(require("./canUsePerMonth"), exports);
 __exportStar(require("./getUserInfo"), exports);
+__exportStar(require("./getTranslateUnits"), exports);
