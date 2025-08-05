@@ -20,12 +20,14 @@ const getUserInfo_1 = require("./getUserInfo");
 const fetchSubscriptionStatus_1 = require("./fetchSubscriptionStatus");
 const canUseSiteToday_1 = require("./canUseSiteToday");
 const canUsePerMonth_1 = require("./canUsePerMonth");
+const getAiTokens_1 = require("./getAiTokens");
 // Named exports
 __exportStar(require("./fetchSubscriptionStatus"), exports);
 __exportStar(require("./canUseSiteToday"), exports);
 __exportStar(require("./canUsePerMonth"), exports);
 __exportStar(require("./getUserInfo"), exports);
 __exportStar(require("./getTranslateUnits"), exports);
+__exportStar(require("./getAiTokens"), exports);
 // Default export for compatibility
 exports.default = {
     getTranslateUnits: getTranslateUnits_1.getTranslateUnits,
@@ -33,4 +35,5 @@ exports.default = {
     fetchSubscriptionStatus: fetchSubscriptionStatus_1.fetchSubscriptionStatus,
     canUseSiteToday: canUseSiteToday_1.canUseSiteToday,
     canUsePerMonth: canUsePerMonth_1.canUsePerMonth,
+    getAITokens: getAiTokens_1.getAITokens
 };

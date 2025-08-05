@@ -4,6 +4,7 @@ import { getUserInfo } from './getUserInfo';
 import { fetchSubscriptionStatus } from './fetchSubscriptionStatus';
 import { canUseSiteToday } from './canUseSiteToday';
 import { canUsePerMonth } from './canUsePerMonth';
+import { getAITokens } from './getAiTokens';
 
 // Named exports
 export * from './fetchSubscriptionStatus';
@@ -11,6 +12,7 @@ export * from "./canUseSiteToday";
 export * from "./canUsePerMonth";
 export * from "./getUserInfo";
 export * from "./getTranslateUnits";
+export * from "./getAiTokens";
 
 // Default export for compatibility
 export default {
@@ -19,4 +21,5 @@ export default {
     fetchSubscriptionStatus,
     canUseSiteToday,
     canUsePerMonth,
+    getAITokens
 };
