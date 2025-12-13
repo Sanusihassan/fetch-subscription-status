@@ -12,6 +12,7 @@ export interface UserInfo {
 }
 /**
  * Retrieves the currently signed-in user's information.
+ * ✅ SECURE VERSION: Uses httpOnly cookie, no userId extraction
  * @returns A Promise resolving to UserInfo if the user is signed in, or null if not.
  */
 export declare function getUserInfo(): Promise<UserInfo | null>;

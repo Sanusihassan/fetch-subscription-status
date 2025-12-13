@@ -1,84 +1,22 @@
-import Cookies from 'js-cookie';
+// fetchSubscriptionStatus.ts - SECURE VERSION
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
 
 const endpoint =
     process.env.NODE_ENV === "development"
-        ? "https://www.pdfequips.com"
-        : "";
-
-
-interface UserInfo {
-    id: string;
-    username: string;
-    email: string;
-    googleId?: string;
-    facebookId?: string;
-    profilePicture: string;
-    emailVerified: boolean;
-    paddleCustomerId?: string | null;
-    createdAt: string;
-    updatedAt: string;
-}
-
-interface JwtPayload {
-    id: string;
-    iat: number;
-    exp: number;
-}
-
-interface SubscriptionResponse {
-    success: boolean;
-    data?: {
-        status: string;
-        // Add other subscription fields as needed
-    };
-}
-
-
-export async function fetchSubscriptionStatus(): Promise<boolean> {
-    try {
-        // Check userInfo cookie
-        const userInfoStr = Cookies.get('userInfo');
-        if (userInfoStr) {
-            const userInfo: UserInfo = JSON.parse(decodeURIComponent(userInfoStr));
-            const response = await axios.get<SubscriptionResponse>(`${endpoint}/subscription/${userInfo.id}`, {
-                headers: {
-                    Authorization: `Bearer ${process.env.API_SECRET_KEY}`,
-                },
-            });
-            return response.data.success && response.data.data?.status === 'active';
-        }
-
-        // Fallback to userToken if userInfo is not available
-        const userToken = Cookies.get('userToken');
-        if (userToken) {
-            const decodedToken = jwtDecode<JwtPayload>(userToken);
-            const response = await axios.get(`${endpoint}/subscription/${decodedToken.id}`, {
-                headers: {
-                    Authorization: `Bearer ${process.env.API_SECRET_KEY}`,
-                },
-            });
-            return response.data.success && response.data.data?.status === 'active';
-        }
-
-        // Default to non-premium if no valid cookies found
-        return false;
-    } catch (error) {
-        console.error('Error fetching subscription status:', error);
-        return false;
-    }
-}
+        ? "http://localhost:3000"  // Your auth API endpoint
+        : "";  // Production endpoint
 
 export enum SubscriptionPlan {
     MONTHLY = 'monthly',
     YEARLY = 'yearly',
+    MONTHLY_PRO = 'monthly_pro',
+    YEARLY_PRO = 'yearly_pro',
     TRIAL = 'trial'
 }
 
 export enum SubscriptionStatus {
     ACTIVE = 'active',
-    INACTIVE = 'inactivate',
+    INACTIVE = 'inactive',
     CANCELED = 'canceled',
     EXPIRED = 'expired',
     PAST_DUE = 'past_due',
@@ -89,9 +27,7 @@ export enum SubscriptionStatus {
     PAYMENT_FAILED = 'payment_failed',
 }
 
-
-
-interface SubscriptionData {
+export interface SubscriptionData {
     id: string;
     userId: string;
     paddleSubscriptionId: string;
@@ -99,60 +35,88 @@ interface SubscriptionData {
     status: SubscriptionStatus;
     startDate: Date;
     endDate: Date;
-    canceledAt: Date;
+    canceledAt: Date | null;
     createdAt: Date;
     updatedAt: Date;
 }
 
+interface SubscriptionResponse {
+    success: boolean;
+    data?: SubscriptionData;
+    error?: string;
+}
 
-interface UserSubscription {
+export interface UserSubscription {
     isActive: boolean;
     subscription: SubscriptionData | null;
 }
 
+// ✅ SECURE: Simple function that relies on backend verification
+export async function fetchSubscriptionStatus(): Promise<boolean> {
+    try {
+        const response = await axios.get<SubscriptionResponse>(
+            `${endpoint}/subscription`,  // ✅ No userId in URL!
+            {
+                withCredentials: true  // ✅ Sends httpOnly cookies automatically
+            }
+        );
+
+        return response.data.success && response.data.data?.status === 'active';
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            // 404 means no subscription, not an error
+            if (error.response?.status === 404) {
+                return false;
+            }
+            // 401 means not authenticated
+            if (error.response?.status === 401) {
+                console.log('User not authenticated');
+                return false;
+            }
+        }
+        console.error('Error fetching subscription status:', error);
+        return false;
+    }
+}
+
+// ✅ SECURE: Get full subscription details
 export async function getUserSubscription(): Promise<UserSubscription> {
     try {
-        let userId: string | null = null;
-
-        // Check userInfo cookie first
-        const userInfoStr = Cookies.get('userInfo');
-        if (userInfoStr) {
-            const userInfo: UserInfo = JSON.parse(decodeURIComponent(userInfoStr));
-            userId = userInfo.id;
-        }
-
-        // Fallback to userToken if userInfo is not available
-        if (!userId) {
-            const userToken = Cookies.get('userToken');
-            if (userToken) {
-                const decodedToken = jwtDecode<JwtPayload>(userToken);
-                userId = decodedToken.id;
+        const response = await axios.get<SubscriptionResponse>(
+            `${endpoint}/subscription`,  // ✅ No userId in URL!
+            {
+                withCredentials: true  // ✅ Sends httpOnly cookies automatically
             }
+        );
+
+        if (response.data.success && response.data.data) {
+            return {
+                isActive: response.data.data.status === 'active',
+                subscription: response.data.data
+            };
         }
 
-        // If we have a userId, try to fetch subscription
-        if (userId) {
-            const response = await axios.get<SubscriptionResponse>(`${endpoint}/subscription/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${process.env.API_SECRET_KEY}`,
-                },
-            });
-
-            if (response.data.success && response.data.data) {
-                return {
-                    isActive: response.data.data.status === 'active',
-                    subscription: (response.data.data as SubscriptionData)
-                };
-            }
-        }
-
-        // Default to non-premium if no valid cookies found or no subscription data
         return {
             isActive: false,
             subscription: null
         };
     } catch (error) {
-        console.error('Error fetching subscription status:', error);
+        if (axios.isAxiosError(error)) {
+            if (error.response?.status === 404) {
+                return {
+                    isActive: false,
+                    subscription: null
+                };
+            }
+            if (error.response?.status === 401) {
+                console.log('User not authenticated');
+                return {
+                    isActive: false,
+                    subscription: null
+                };
+            }
+        }
+        console.error('Error fetching subscription:', error);
         return {
             isActive: false,
             subscription: null

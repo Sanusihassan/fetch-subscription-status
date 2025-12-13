@@ -1,33 +1,39 @@
 {
   "name": "fetch-subscription-status",
-  "version": "2.0.74",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "version": "3.0.0",
+  "description": "Secure subscription and user data fetching for PDFEquips",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
-      "types": "./dist/esm/index.d.ts"
-    },
-    "./fetchSubscriptionStatus": {
-      "import": "./dist/esm/fetchSubscriptionStatus.js",
-      "require": "./dist/cjs/fetchSubscriptionStatus.js",
-      "types": "./dist/esm/fetchSubscriptionStatus.d.ts"
+      "import": "./dist/esm/index.js",
+      "types": "./dist/cjs/index.d.ts"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json"
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "subscription",
+    "user-info",
+    "balance",
+    "pdfequips",
+    "authentication"
+  ],
+  "author": "PDFEquips",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^22.13.10",
-    "typescript": "^5.0.0",
-    "undici-types": "^7.5.0"
-  },
-  "dependencies": {
-    "axios": "^1.8.3",
-    "js-cookie": "^3.0.5",
-    "jwt-decode": "^4.0.0"
+    "typescript": "^5.0.0"
   }
 }

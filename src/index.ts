@@ -1,25 +1,30 @@
-// index.ts (complete package index)
-import { getTranslateUnits } from './getTranslateUnits';
-import { getUserInfo } from './getUserInfo';
-import { fetchSubscriptionStatus } from './fetchSubscriptionStatus';
-import { canUseSiteToday } from './canUseSiteToday';
-import { canUsePerMonth } from './canUsePerMonth';
-import { getAITokens } from './getAiTokens';
+// src/index.ts
+// Main entry point for the fetch-subscription-status package
 
-// Named exports
-export * from './fetchSubscriptionStatus';
-export * from "./canUseSiteToday";
-export * from "./canUsePerMonth";
-export * from "./getUserInfo";
-export * from "./getTranslateUnits";
-export * from "./getAiTokens";
-
-// Default export for compatibility
-export default {
-    getTranslateUnits,
-    getUserInfo,
+// Export subscription status functions
+export {
     fetchSubscriptionStatus,
-    canUseSiteToday,
-    canUsePerMonth,
-    getAITokens
-};
+    getUserSubscription,
+    SubscriptionPlan,
+    SubscriptionStatus,
+    type UserSubscription,
+    type SubscriptionData
+} from './fetchSubscriptionStatus';
+
+// Export balance functions
+export {
+    getUserBalance,
+    getTranslateUnits,
+    getAITokens,
+    type BalanceResponse
+} from './getUserBalance';
+
+// Export user info functions
+export {
+    getUserInfo,
+    type UserInfo
+} from './getUserInfo';
+
+// Export usage limit functions
+export { canUsePerMonth } from './canUsePerMonth';
+export { canUseSiteToday } from './canUseSiteToday';

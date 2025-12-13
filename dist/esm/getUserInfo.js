@@ -1,4 +1,6 @@
 "use strict";
+// ✅ SECURE FRONTEND
+// getUserInfo.ts
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,50 +8,51 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserInfo = getUserInfo;
 const js_cookie_1 = __importDefault(require("js-cookie"));
 const axios_1 = __importDefault(require("axios"));
-const jwt_decode_1 = require("jwt-decode");
-// Define the API endpoint based on environment
 const endpoint = process.env.NODE_ENV === "development"
-    ? "https://refactored-space-couscous-r65x9p4pxqghw7gv-3000.app.github.dev/"
+    ? "http://localhost:3000"
     : "";
 /**
  * Retrieves the currently signed-in user's information.
+ * ✅ SECURE VERSION: Uses httpOnly cookie, no userId extraction
  * @returns A Promise resolving to UserInfo if the user is signed in, or null if not.
  */
 async function getUserInfo() {
     try {
-        // Step 1: Check for 'userInfo' cookie
+        // Step 1: Try userInfo cookie first (faster, no API call needed)
         const userInfoStr = js_cookie_1.default.get('userInfo');
         if (userInfoStr) {
-            // Parse the JSON string from the cookie and return it
-            const userInfo = JSON.parse(decodeURIComponent(userInfoStr));
-            return userInfo;
-        }
-        // Step 2: Fallback to 'userToken' cookie
-        const userToken = js_cookie_1.default.get('userToken');
-        if (userToken) {
-            // Decode the JWT to get user details
-            const decodedToken = (0, jwt_decode_1.jwtDecode)(userToken);
-            // Check if the token has expired
-            const currentTime = Date.now() / 1000; // Current time in seconds
-            if (decodedToken.exp < currentTime) {
-                // Token is expired, treat as no user signed in
-                return null;
+            try {
+                const userInfo = JSON.parse(decodeURIComponent(userInfoStr));
+                return userInfo;
             }
-            // Fetch user info from the server using the user ID
-            const userId = decodedToken.id;
-            const response = await axios_1.default.get(`${endpoint}/users/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${process.env.API_SECRET_KEY}`,
-                },
-            });
-            // Return the fetched user info
-            return response.data;
+            catch (parseError) {
+                console.error('Error parsing userInfo cookie:', parseError);
+                // Fall through to API call
+            }
         }
-        // Step 3: No valid cookies found, return null
+        // Step 2: Fallback to API call using httpOnly userToken cookie
+        // ✅ SECURE: No userId, no API_SECRET_KEY - just withCredentials
+        const response = await axios_1.default.get(`${endpoint}/auth/user`, // ✅ No userId in URL!
+        {
+            withCredentials: true // ✅ Sends httpOnly cookie automatically
+        });
+        if (response.data.success && response.data.data) {
+            return response.data.data;
+        }
         return null;
     }
     catch (error) {
-        // Log any errors and return null
+        if (axios_1.default.isAxiosError(error)) {
+            // 401 means not authenticated - this is normal, not an error
+            if (error.response?.status === 401) {
+                return null;
+            }
+            // 404 means user not found
+            if (error.response?.status === 404) {
+                console.warn('User not found');
+                return null;
+            }
+        }
         console.error('Error getting user info:', error);
         return null;
     }

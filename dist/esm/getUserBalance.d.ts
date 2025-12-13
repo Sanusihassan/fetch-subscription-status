@@ -1,0 +1,17 @@
+export interface BalanceResponse {
+    success: boolean;
+    data: {
+        translateUnits: number;
+        aiTokens: number;
+    };
+}
+/**
+ * Fetch both translate units and AI tokens for authenticated user
+ * ✅ SECURE: No userId needed - uses JWT from httpOnly cookie
+ */
+export declare const getUserBalance: (baseURL?: string) => Promise<{
+    translateUnits: number;
+    aiTokens: number;
+}>;
+export declare const getTranslateUnits: (baseURL?: string) => Promise<number>;
+export declare const getAITokens: (baseURL?: string) => Promise<number>;

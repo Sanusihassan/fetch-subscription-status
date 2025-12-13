@@ -1,39 +1,24 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
+// src/index.ts
+// Main entry point for the fetch-subscription-status package
 Object.defineProperty(exports, "__esModule", { value: true });
-// index.ts (complete package index)
-const getTranslateUnits_1 = require("./getTranslateUnits");
-const getUserInfo_1 = require("./getUserInfo");
-const fetchSubscriptionStatus_1 = require("./fetchSubscriptionStatus");
-const canUseSiteToday_1 = require("./canUseSiteToday");
-const canUsePerMonth_1 = require("./canUsePerMonth");
-const getAiTokens_1 = require("./getAiTokens");
-// Named exports
-__exportStar(require("./fetchSubscriptionStatus"), exports);
-__exportStar(require("./canUseSiteToday"), exports);
-__exportStar(require("./canUsePerMonth"), exports);
-__exportStar(require("./getUserInfo"), exports);
-__exportStar(require("./getTranslateUnits"), exports);
-__exportStar(require("./getAiTokens"), exports);
-// Default export for compatibility
-exports.default = {
-    getTranslateUnits: getTranslateUnits_1.getTranslateUnits,
-    getUserInfo: getUserInfo_1.getUserInfo,
-    fetchSubscriptionStatus: fetchSubscriptionStatus_1.fetchSubscriptionStatus,
-    canUseSiteToday: canUseSiteToday_1.canUseSiteToday,
-    canUsePerMonth: canUsePerMonth_1.canUsePerMonth,
-    getAITokens: getAiTokens_1.getAITokens
-};
+exports.canUseSiteToday = exports.canUsePerMonth = exports.getUserInfo = exports.getAITokens = exports.getTranslateUnits = exports.getUserBalance = exports.SubscriptionStatus = exports.SubscriptionPlan = exports.getUserSubscription = exports.fetchSubscriptionStatus = void 0;
+// Export subscription status functions
+var fetchSubscriptionStatus_1 = require("./fetchSubscriptionStatus");
+Object.defineProperty(exports, "fetchSubscriptionStatus", { enumerable: true, get: function () { return fetchSubscriptionStatus_1.fetchSubscriptionStatus; } });
+Object.defineProperty(exports, "getUserSubscription", { enumerable: true, get: function () { return fetchSubscriptionStatus_1.getUserSubscription; } });
+Object.defineProperty(exports, "SubscriptionPlan", { enumerable: true, get: function () { return fetchSubscriptionStatus_1.SubscriptionPlan; } });
+Object.defineProperty(exports, "SubscriptionStatus", { enumerable: true, get: function () { return fetchSubscriptionStatus_1.SubscriptionStatus; } });
+// Export balance functions
+var getUserBalance_1 = require("./getUserBalance");
+Object.defineProperty(exports, "getUserBalance", { enumerable: true, get: function () { return getUserBalance_1.getUserBalance; } });
+Object.defineProperty(exports, "getTranslateUnits", { enumerable: true, get: function () { return getUserBalance_1.getTranslateUnits; } });
+Object.defineProperty(exports, "getAITokens", { enumerable: true, get: function () { return getUserBalance_1.getAITokens; } });
+// Export user info functions
+var getUserInfo_1 = require("./getUserInfo");
+Object.defineProperty(exports, "getUserInfo", { enumerable: true, get: function () { return getUserInfo_1.getUserInfo; } });
+// Export usage limit functions
+var canUsePerMonth_1 = require("./canUsePerMonth");
+Object.defineProperty(exports, "canUsePerMonth", { enumerable: true, get: function () { return canUsePerMonth_1.canUsePerMonth; } });
+var canUseSiteToday_1 = require("./canUseSiteToday");
+Object.defineProperty(exports, "canUseSiteToday", { enumerable: true, get: function () { return canUseSiteToday_1.canUseSiteToday; } });
