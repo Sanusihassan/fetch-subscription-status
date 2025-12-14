@@ -11,6 +11,7 @@ export interface BalanceResponse {
     data: {
         translateUnits: number;
         aiTokens: number;
+        premiumConversions: number
     };
 }
 
