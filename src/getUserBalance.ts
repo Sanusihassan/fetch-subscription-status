@@ -21,7 +21,7 @@ export interface BalanceResponse {
  */
 export const getUserBalance = async (
     baseURL: string = `${endpoint}/auth`
-): Promise<{ translateUnits: number; aiTokens: number }> => {
+): Promise<BalanceResponse["data"]> => {
     try {
         const response = await axios.get<BalanceResponse>(
             `${baseURL}/balance`,
