@@ -2,7 +2,7 @@
 // src/index.ts
 // Main entry point for the fetch-subscription-status package
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.canUseSiteToday = exports.canUsePerMonth = exports.getUserInfo = exports.getAITokens = exports.getTranslateUnits = exports.getUserBalance = exports.SubscriptionStatus = exports.SubscriptionPlan = exports.getUserSubscription = exports.fetchSubscriptionStatus = void 0;
+exports.canUseSiteToday = exports.increaseDailySiteUsage = exports.canUsePerMonth = exports.getUserInfo = exports.getAITokens = exports.getTranslateUnits = exports.getUserBalance = exports.SubscriptionStatus = exports.SubscriptionPlan = exports.getUserSubscription = exports.fetchSubscriptionStatus = void 0;
 // Export subscription status functions
 var fetchSubscriptionStatus_1 = require("./fetchSubscriptionStatus");
 Object.defineProperty(exports, "fetchSubscriptionStatus", { enumerable: true, get: function () { return fetchSubscriptionStatus_1.fetchSubscriptionStatus; } });
@@ -20,5 +20,7 @@ Object.defineProperty(exports, "getUserInfo", { enumerable: true, get: function 
 // Export usage limit functions
 var canUsePerMonth_1 = require("./canUsePerMonth");
 Object.defineProperty(exports, "canUsePerMonth", { enumerable: true, get: function () { return canUsePerMonth_1.canUsePerMonth; } });
+var increaseDailySiteUsage_1 = require("./increaseDailySiteUsage");
+Object.defineProperty(exports, "increaseDailySiteUsage", { enumerable: true, get: function () { return increaseDailySiteUsage_1.increaseDailySiteUsage; } });
 var canUseSiteToday_1 = require("./canUseSiteToday");
 Object.defineProperty(exports, "canUseSiteToday", { enumerable: true, get: function () { return canUseSiteToday_1.canUseSiteToday; } });

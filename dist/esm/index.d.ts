@@ -2,4 +2,5 @@ export { fetchSubscriptionStatus, getUserSubscription, SubscriptionPlan, Subscri
 export { getUserBalance, getTranslateUnits, getAITokens, type BalanceResponse } from './getUserBalance';
 export { getUserInfo, type UserInfo } from './getUserInfo';
 export { canUsePerMonth } from './canUsePerMonth';
+export { increaseDailySiteUsage } from './increaseDailySiteUsage';
 export { canUseSiteToday } from './canUseSiteToday';

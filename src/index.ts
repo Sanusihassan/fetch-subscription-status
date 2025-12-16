@@ -27,4 +27,5 @@ export {
 
 // Export usage limit functions
 export { canUsePerMonth } from './canUsePerMonth';
+export { increaseDailySiteUsage } from './increaseDailySiteUsage';
 export { canUseSiteToday } from './canUseSiteToday';
